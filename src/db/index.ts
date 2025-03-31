@@ -1,20 +1,8 @@
-import { drizzle } from "drizzle-orm/postgres-js";
-import postgres from "postgres";
-import type { PostgresJsDatabase } from "drizzle-orm/postgres-js";
+import { drizzle } from "drizzle-orm/neon-http";
+import { neon } from "@neondatabase/serverless";
+import { config } from "dotenv";
 
-declare global {
-  // eslint-disable-next-line no-var -- only var works here
-  var db: PostgresJsDatabase | undefined;
-}
+config({ path: ".env" });
 
-let db: PostgresJsDatabase;
-
-if (process.env.NODE_ENV === "production") {
-  db = drizzle(postgres(`${process.env.DATABASE_URL}`));
-} else {
-  if (!global.db) global.db = drizzle(postgres(`${process.env.DATABASE_URL}`));
-
-  db = global.db;
-}
-
-export { db };
+const sql = neon(process.env.DATABASE_URL!);
+export const db = drizzle({ client: sql });
