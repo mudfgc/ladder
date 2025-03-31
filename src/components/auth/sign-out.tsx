@@ -5,15 +5,9 @@ import { Button } from "../ui/button";
 import { redirect } from "next/navigation";
 
 export default function SignOut() {
-  function handleSignOut() {
-    signOut({
-      fetchOptions: {
-        onSuccess: () => redirect("/")
-      }
-    })
+  async function handleSignOut() {
+    await signOut().then(() => redirect("/"));
   }
 
-  return (
-    <Button onClick={handleSignOut}>sign out</Button>
-  )
+  return <Button onClick={handleSignOut}>sign out</Button>
 }
