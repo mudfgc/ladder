@@ -1,6 +1,6 @@
 import { createAuthClient } from "better-auth/react"
 
-const { signIn: defaultSignIn, useSession, signOut } = createAuthClient()
+const { signIn: defaultSignIn, useSession, signOut, getSession } = createAuthClient()
 
 const signIn = async () => {
   return await defaultSignIn.social({
@@ -8,4 +8,4 @@ const signIn = async () => {
   })
 }
 
-export { useSession, signIn, signOut }
+export { useSession, signIn, signOut, getSession }
