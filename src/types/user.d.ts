@@ -1,0 +1,3 @@
+type UpdateUserPayload = {
+    username: string
+}

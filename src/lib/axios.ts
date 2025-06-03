@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const axiosClient = axios.create({
-  baseURL: process.env.BETTER_AUTH_URL,
+  baseURL: "/api",
 })
 
 export default axiosClient

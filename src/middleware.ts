@@ -26,11 +26,11 @@ export async function middleware(request: NextRequest) {
     }
 
     if (pathname.match(/\/api\/users\/([^\/]+)/)) {
-        const userId = pathname.split('/')[3];
+        const userId = pathname.split('/').slice(-1)[0];
 
         if (session?.user.id !== userId) {
             return new NextResponse(
-                JSON.stringify({ success: false, message: "unauthorized" }),
+                JSON.stringify({ success: false, message: `unauthorized ${userId}` }),
                 {
                     status: 403,
                     headers: { 'content-type': 'application/json' }

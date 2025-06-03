@@ -6,19 +6,21 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { User } from "better-auth"
-import { updateUser } from "@/lib/auth-client"
 import { useMutation } from "@tanstack/react-query"
 import { Loader2 } from "lucide-react"
+import { updateUser, User } from "@/lib/user"
 
 const formSchema = z.object({
-    name: z.string().min(2).max(50),
+    username: z.string().min(2).max(50),
 })
 
 export default function UpdateAccountForm({ user }: { user: User }) {
     const mutation = useMutation({
         mutationKey: ["user", user.id],
-        mutationFn: (values: z.infer<typeof formSchema>) => updateUser(values),
+        mutationFn: (values: z.infer<typeof formSchema>) => updateUser(user.id, values),
+        onError: (error) => {
+            form.setError("username", error)
+        }
     })
 
     const form = useForm<z.infer<typeof formSchema>>({
@@ -35,10 +37,10 @@ export default function UpdateAccountForm({ user }: { user: User }) {
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2 max-w-2xs">
                 <FormField
                     control={form.control}
-                    name="name"
+                    name="username"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>name</FormLabel>
+                            <FormLabel>username</FormLabel>
                             <FormControl>
                                 <Input {...field} />
                             </FormControl>
