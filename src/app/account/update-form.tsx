@@ -3,23 +3,21 @@
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { useMutation } from "@tanstack/react-query"
 import { Loader2 } from "lucide-react"
-import { updateUser, User } from "@/lib/user"
+import { trpc } from "../_trpc/client"
+import { update } from "@/schemas/user"
+import { User } from "@/lib/session"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 
-const formSchema = z.object({
-    username: z.string().min(2).max(50),
-})
+const formSchema = update.shape.payload
 
 export default function UpdateAccountForm({ user }: { user: User }) {
-    const mutation = useMutation({
-        mutationKey: ["user", user.id],
-        mutationFn: (values: z.infer<typeof formSchema>) => updateUser(user.id, values),
+
+    const mutation = trpc.user.update.useMutation({
         onError: (error) => {
-            form.setError("username", error)
+            form.setError("username", { message: error.message })
         }
     })
 
@@ -29,7 +27,7 @@ export default function UpdateAccountForm({ user }: { user: User }) {
     })
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
-        mutation.mutate(values)
+        mutation.mutate({ id: user.id, payload: values })
     }
 
     return (

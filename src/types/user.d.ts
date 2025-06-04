@@ -1,3 +1,0 @@
-type UpdateUserPayload = {
-    username: string
-}

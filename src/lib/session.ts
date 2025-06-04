@@ -2,8 +2,9 @@ import { redirect } from "next/navigation";
 import { auth } from "./auth";
 import { headers } from "next/headers";
 
-type Session = Awaited<ReturnType<typeof auth.api.getSession>>;
-export type CurrentSession = Exclude<Session, null>;
+type Session = Awaited<ReturnType<typeof auth.api.getSession>>
+export type CurrentSession = Exclude<Session, null>
+export type User = CurrentSession["user"]
 
 export async function authenticate<T extends boolean = true>(redirection: T = true as T): Promise<T extends true ? CurrentSession : Session> {
     const session = await auth.api.getSession({

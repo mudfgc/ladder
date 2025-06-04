@@ -1,12 +1,12 @@
 import Link from "next/link"
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar"
+import { Avatar, AvatarFallback } from "../ui/avatar"
+import { User } from "lucide-react"
 
-export default function MyAccount({ name, image }: { name: string, image?: string | null }) {
+export default function MyAccount() {
   return (
     <Link href="/account" className="h-14 flex items-center justify-center aspect-square">
       <Avatar>
-        <AvatarFallback>{`${name[0]}${name[1]}`}</AvatarFallback>
-        {image && <AvatarImage src={image} alt={name} />}
+        <AvatarFallback><User className="size-4" /></AvatarFallback>
       </Avatar>
     </Link>
   )
