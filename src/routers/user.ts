@@ -1,6 +1,6 @@
 import { db } from "@/db";
 import { user } from "@/db/schema";
-import { update } from "@/schemas/user";
+import { destroy, update } from "@/schemas/user";
 import { publicProcedure, router } from "@/server/trcp";
 import { TRPCError } from "@trpc/server";
 import { eq } from "drizzle-orm";
@@ -19,5 +19,9 @@ export const userRouter = router({
         }
 
         return await db.update(user).set(data.payload).where(eq(user.id, data.id))
+    }),
+    destroy: publicProcedure.input(destroy).mutation(async (opts) => {
+        const data = opts.input
+        return await db.delete(user).where(eq(user.id, data.id))
     })
 })

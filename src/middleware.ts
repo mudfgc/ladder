@@ -10,32 +10,8 @@ export async function middleware(request: NextRequest) {
     const { pathname } = request.nextUrl;
 
     if (!session) {
-        if (pathname.startsWith('/api/') && !pathname.startsWith('/api/auth')) {
-            return new NextResponse(
-                JSON.stringify({ success: false, message: "request authentication" }),
-                {
-                    status: 401,
-                    headers: { 'content-type': 'application/json' }
-                }
-            );
-        }
-
         if (pathname.startsWith('/account')) {
             return NextResponse.redirect(new URL("/", request.url));
-        }
-    }
-
-    if (pathname.match(/\/api\/users\/([^\/]+)/)) {
-        const userId = pathname.split('/').slice(-1)[0];
-
-        if (session?.user.id !== userId) {
-            return new NextResponse(
-                JSON.stringify({ success: false, message: `unauthorized ${userId}` }),
-                {
-                    status: 403,
-                    headers: { 'content-type': 'application/json' }
-                }
-            );
         }
     }
 
@@ -45,6 +21,5 @@ export async function middleware(request: NextRequest) {
 export const config = {
     matcher: [
         '/account',
-        '/api/:path*',
     ]
 };
