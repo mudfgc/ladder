@@ -5,6 +5,7 @@ import Providers from "./_trpc/providers";
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import "./globals.css";
+import { Toaster } from "@/components/ui/sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,7 +18,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "mud/ladder",
+  title: "mud ladder",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode; }>) {
@@ -27,6 +28,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <Providers>
           <Header />
           {children}
+          <Toaster position="top-center" />
         </Providers>
         <Analytics />
         <SpeedInsights />

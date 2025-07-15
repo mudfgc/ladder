@@ -10,11 +10,15 @@ import { trpc } from "../../_trpc/client"
 import { update } from "@/schemas/user"
 import { User } from "@/lib/session"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
+import { toast } from "sonner"
 
 const formSchema = update.shape.payload
 
 export default function UpdateAccountForm({ user }: { user: User }) {
     const mutation = trpc.user.update.useMutation({
+        onSuccess: () => {
+            toast("username successfully updated!", { duration: 1000 })
+        },
         onError: (error) => {
             form.setError("username", { message: error.message })
         }
