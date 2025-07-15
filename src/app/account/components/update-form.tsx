@@ -14,7 +14,6 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 const formSchema = update.shape.payload
 
 export default function UpdateAccountForm({ user }: { user: User }) {
-
     const mutation = trpc.user.update.useMutation({
         onError: (error) => {
             form.setError("username", { message: error.message })
