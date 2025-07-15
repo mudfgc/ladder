@@ -14,7 +14,7 @@ export const userRouter = router({
             const existingUser = await db.select().from(user).where(eq(user.username, data.payload.username)).limit(1);
 
             if (!isEmpty(existingUser) && existingUser[0].id !== data.id) {
-                throw new TRPCError({ message: "already taken", code: "CONFLICT" })
+                throw new TRPCError({ message: "username already taken", code: "CONFLICT" })
             }
         }
 
