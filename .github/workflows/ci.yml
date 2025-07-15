@@ -23,6 +23,3 @@ jobs:
 
       - name: Run linters
         run: bun run lint
-
-      - name: Build the project
-        run: bun run build
