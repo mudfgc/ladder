@@ -6,5 +6,5 @@ import SignIn from "./sign-in";
 
 export default function AuthNavigation() {
     const { data: session, isPending } = useSession();
-    return !isPending && (session ? <MyAccount /> : <SignIn />)
+    return !isPending && (session ? <MyAccount user={session.user} /> : <SignIn />)
 }

@@ -14,7 +14,7 @@ import { toast } from "sonner"
 
 const formSchema = update.shape.payload
 
-export default function UpdateAccountForm({ user }: { user: User }) {
+export default function UpdateForm({ user }: { user: User }) {
     const mutation = trpc.user.update.useMutation({
         onSuccess: () => {
             toast("username successfully updated!", { duration: 1000 })
@@ -35,7 +35,7 @@ export default function UpdateAccountForm({ user }: { user: User }) {
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2 max-w-2xs">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
                 <FormField
                     control={form.control}
                     name="username"

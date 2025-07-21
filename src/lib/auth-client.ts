@@ -9,7 +9,7 @@ const { signIn: defaultSignIn, useSession, signOut, getSession, updateUser } = c
 const signIn = async () => {
   await defaultSignIn.social({
     provider: "google",
-    callbackURL: "/account",
+    callbackURL: "/",
   })
 }
 

@@ -10,7 +10,7 @@ export async function middleware(request: NextRequest) {
     const { pathname } = request.nextUrl;
 
     if (!session) {
-        if (pathname.startsWith('/account')) {
+        if (pathname.startsWith('/settings')) {
             return NextResponse.redirect(new URL("/", request.url));
         }
     }
@@ -20,6 +20,6 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
     matcher: [
-        '/account',
+        '/settings',
     ]
 };
